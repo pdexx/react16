@@ -12,15 +12,22 @@ class App extends Component {
     ],
     count:0
   }
-  handleName=()=>{this.setState({
+  handleName=(newName)=>{this.setState({
     person:[
-      {name:"JJ", age:33},
+      {name:newName, age:33},
       {name:"Bob", age:15},
       {name:"Mary", age:2},
     ]
   })}
-  handlecount=()=>{this.setState({
-    count:3,
+  handleInputName=(inputName)=>{this.setState({
+    person:[
+      {name:"Joe", age:33},
+      {name:inputName.target.value, age:15},
+      {name:"Mary", age:2},
+    ]
+  })}
+  handleCount=()=>{this.setState({
+    count:this.state.count+1,
   })}
   render() {
     return (
@@ -30,15 +37,23 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <h1>hihihih</h1>
-        <button onClick={this.handleName}>btn</button>
+        <button onClick={this.handleName.bind(this, '!!!!')}>btn</button>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           {/* ==== */}
-          <Person name={this.state.person[0].name} age={this.state.person[0].age}/>
-          <Person name={this.state.person[1].name} age={this.state.person[1].age}/>
+          <Person 
+          click={this.handleName.bind(this, 'hihihi')} 
+          name={this.state.person[0].name} 
+          age={this.state.person[0].age}/>
+          <Person name={this.state.person[1].name} age={this.state.person[1].age}
+          change={this.handleInputName}
+          />
+
           <Person name={this.state.person[2].name} age={this.state.person[2].age}/>
           <button onClick={this.handleCount}>+1</button>
           <div>{this.state.count}</div>
+           {/* ==== */}
+           
         </p>
       </div>
     );
