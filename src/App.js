@@ -4,37 +4,44 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
-  state={
-    person:[
-      {name:"John", age:33},
-      {name:"Bob", age:15},
-      {name:"Mary", age:22},
+  state = {
+    person: [
+      { name: "John", age: 33 },
+      { name: "Bob", age: 15 },
+      { name: "Mary", age: 22 },
     ],
-    count:0,
-    open:true,
+    count: 0,
+    open: true,
   }
-  handleName=(newName)=>{this.setState({
-    person:[
-      {name:newName, age:33},
-      {name:"Bob", age:15},
-      {name:"Mary", age:2},
-    ]
-  })}
-  handleInputName=(inputName)=>{this.setState({
-    person:[
-      {name:"Joe", age:33},
-      {name:inputName.target.value, age:15},
-      {name:"Mary", age:2},
-    ]
-  })}
-  togglePersonHandle=()=>{this.setState({
-    open:!this.state.open,
-  })}
-  handleCount=()=>{this.setState({
-    count:this.state.count+1,
-  })}
+  handleInputName = (inputName) => {
+    this.setState({
+      person: [
+        { name: "Joe", age: 33 },
+        { name: inputName.target.value, age: 15 },
+        { name: "Mary", age: 2 },
+      ]
+    })
+  }
+  handleDeleteName = (inputName) => {
+    const persons =this.state.person;
+    persons.splice(inputName,1);//將state中的person陣列從後面裁掉1個
+    this.setState({
+      person: persons,
+    })
+  }
+
+  togglePersonHandle = () => {
+    this.setState({
+      open: !this.state.open,
+    })
+  }
+  handleCount = () => {
+    this.setState({
+      count: this.state.count + 1,
+    })
+  }
   render() {
-    const style ={
+    const style = {
       backgroundColor: '#4CAF50',
       border: 'none',
       color: 'white',
@@ -45,6 +52,28 @@ class App extends Component {
       fontSize: '16px',
     };
 
+    //將內容賦予一個變數person
+    //用{}與map使資料驅動list
+    //當在Jsx檔案中出現<Tag></Tag>時，Tag間必須依據JSX的語法，有程式的部份需{....}處理
+    let person = (
+      <div>{
+        this.state.person.map((man, index) => {
+          return (
+            <Person
+              name={man.name}
+              age={man.age}
+              change={this.handleInputName}
+              delete={()=>this.handleDeleteName(index)}
+            />)
+        })}</div>);
+
+    //利用邏輯控制內容是否顯示
+    if (this.state.open === true) {
+
+    } else {
+      person = null;
+    }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -52,29 +81,14 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <h1>hihihih</h1>
-        <button onClick={this.handleName.bind(this, '!!!!')} style={style}>btn</button>
-        <br/>
         <button onClick={this.togglePersonHandle} style={style}>toggle</button>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           {/* ==== */}
         </p>
-        {(this.state.open===true)?
-        <div>
-          <Person 
-          name={this.state.person[0].name} 
-          age={this.state.person[0].age}/>
-
-          <Person name={this.state.person[1].name} age={this.state.person[1].age}
-          change={this.handleInputName}
-          />
-
-          <Person name={this.state.person[2].name} age={this.state.person[2].age}/>
-          
-          
-           </div>:null}
-           <button onClick={this.handleCount}>+1</button>
-           <div>{this.state.count}</div>
+        {person}
+        <button onClick={this.handleCount}>+1</button>
+        <div>{this.state.count}</div>
       </div>
     );
   }
