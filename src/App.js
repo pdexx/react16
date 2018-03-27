@@ -15,7 +15,7 @@ class App extends Component {
   }
   handleInputName = (event, id) => {
     console.log(event, id);
-    //event為input事件的所有參數, id是所輸入的input的id(目前是亂數的key值)
+    //event為input事件的所有參數, id是所輸入的input的id(目前是自訂的key值)
 
     const personIndex = this.state.person.findIndex(p => { return p.id === id });
     console.log(personIndex);
