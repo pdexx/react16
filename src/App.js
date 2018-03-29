@@ -11,7 +11,7 @@ class App extends Component {
       { id: 'ffrfr4', name: "Mary", age: 22 },
     ],
     count: 0,
-    open: true,
+    open: false,
   }
   handleInputName = (event, id) => {
     console.log(event, id);
@@ -20,23 +20,23 @@ class App extends Component {
     const personIndex = this.state.person.findIndex(p => { return p.id === id });
     console.log(personIndex);
     //先用p.id去找出被改動的資料在陣列中是第幾筆
-    
+
     const person = { ...this.state.person[personIndex] };
     console.log(person);
     //把該筆資料取出(避免值接修改state.person)
-    
+
     person.name = event.target.value;
     console.log(person.name);
     //將該筆資料的name變成表單輸入的值
-    
+
     const persons = [...this.state.person];
     console.log(persons);
     //令state.person為一個新陣列(避免值接修改state.person)
-    
-    persons[personIndex]=person;
+
+    persons[personIndex] = person;
     console.log(persons[personIndex]);
     //使新陣列中被改變的數值被改變
-    
+
     this.setState({
       person: persons,
     })
@@ -91,11 +91,22 @@ class App extends Component {
         })}</div>);
 
     //利用邏輯控制內容是否顯示
-    if (this.state.open === true) {
-
-    } else {
+    if (this.state.open === false) {
       person = null;
+    } else {
+
+      style.backgroundColor = 'red';
     }
+
+    const classes = [];
+    if (this.state.person.length <= 2) {
+      classes.push('red');
+    } 
+    if (this.state.person.length <= 1) {
+      classes.push('bold');
+    }
+
+
 
     return (
       <div className="App">
@@ -103,7 +114,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <h1>hihihih</h1>
+        <p className={classes.join(' ')}>hihihih</p>
         <button onClick={this.togglePersonHandle} style={style}>toggle</button>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
