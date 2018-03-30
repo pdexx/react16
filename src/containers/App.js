@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './../assets/logo.svg';
 import './App.css';
-//import Person from './../components/Persons/Person/Person.js';
+import Cockpits from './../components/Cockpits/Cockpits.js';
 import Persons from './../components/Persons/Persons.js';
 
 class App extends Component {
@@ -100,20 +100,20 @@ class App extends Component {
       }</div>);
 
     //利用邏輯控制內容是否顯示
-    if (this.state.open === false) {
-      person = null;
-    } else {
+    // if (this.state.open === false) {
+    //   person = null;
+    // } else {
 
-      style.backgroundColor = 'red';
-    }
+    //   style.backgroundColor = 'red';
+    // }
 
-    const classes = [];
-    if (this.state.person.length <= 2) {
-      classes.push('red');
-    } 
-    if (this.state.person.length <= 1) {
-      classes.push('bold');
-    }
+    // const classes = [];
+    // if (this.state.person.length <= 2) {
+    //   classes.push('red');
+    // } 
+    // if (this.state.person.length <= 1) {
+    //   classes.push('bold');
+    // }
 
 
 
@@ -123,8 +123,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className={classes.join(' ')}>hihihih</p>
-        <button onClick={this.togglePersonHandle} style={style}>toggle</button>
+        <Cockpits myPerson={person}/>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           {/* ==== */}
