@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './../assets/logo.svg';
 import './App.css';
-import Person from './../components/Persons/Person/Person.js';
+//import Person from './../components/Persons/Person/Person.js';
+import Persons from './../components/Persons/Persons.js';
 
 class App extends Component {
   state = {
@@ -78,17 +79,25 @@ class App extends Component {
     //當在Jsx檔案中出現<Tag></Tag>時，Tag間必須依據JSX的語法，有程式的部份需{....}處理
     let person = (
       <div>{
-        this.state.person.map((man, index) => {
-          return (
-            <Person
-              name={man.name}
-              age={man.age}
-              key={man.id}
-              change={(event) => this.handleInputName(event, man.id)}
-              // event是輸入的值,man.id是陣列給予的id
-              delete={() => this.handleDeleteName(index)}
-            />)
-        })}</div>);
+        <Persons 
+          persons={this.state.person}
+          changed={this.handleInputName}
+          deleted={this.handleDeleteName}
+        />
+
+        // this.state.person.map((man, index) => {
+        //   return (
+        //     <Person
+        //       name={man.name}
+        //       age={man.age}
+        //       key={man.id}
+        //       change={(event) => this.handleInputName(event, man.id)}
+        //       // event是輸入的值,man.id是陣列給予的id
+        //       delete={() => this.handleDeleteName(index)}
+        //     />)
+        // })
+      
+      }</div>);
 
     //利用邏輯控制內容是否顯示
     if (this.state.open === false) {
