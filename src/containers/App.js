@@ -63,59 +63,24 @@ class App extends Component {
     })
   }
   render() {
-    const style = {
-      backgroundColor: '#4CAF50',
-      border: 'none',
-      color: 'white',
-      padding: '15px 32px',
-      textAlign: 'center',
-      textDecoration: 'none',
-      display: 'inline-block',
-      fontSize: '16px',
-    };
+
 
     //將內容賦予一個變數person
     //用{}與map使資料驅動list
     //當在Jsx檔案中出現<Tag></Tag>時，Tag間必須依據JSX的語法，有程式的部份需{....}處理
-    let person = (
-      <div>{
-        <Persons 
-          persons={this.state.person}
-          changed={this.handleInputName}
-          deleted={this.handleDeleteName}
-        />
+    let persons = null;
+    if (this.state.open) {
+      persons = (
+        <div>{
+          <Persons
+            persons={this.state.person}
+            changed={this.handleInputName}
+            deleted={this.handleDeleteName}
+          />
+        }</div>);
+    }
 
-        // this.state.person.map((man, index) => {
-        //   return (
-        //     <Person
-        //       name={man.name}
-        //       age={man.age}
-        //       key={man.id}
-        //       change={(event) => this.handleInputName(event, man.id)}
-        //       // event是輸入的值,man.id是陣列給予的id
-        //       delete={() => this.handleDeleteName(index)}
-        //     />)
-        // })
-      
-      }</div>);
-
-    //利用邏輯控制內容是否顯示
-    // if (this.state.open === false) {
-    //   person = null;
-    // } else {
-
-    //   style.backgroundColor = 'red';
-    // }
-
-    // const classes = [];
-    // if (this.state.person.length <= 2) {
-    //   classes.push('red');
-    // } 
-    // if (this.state.person.length <= 1) {
-    //   classes.push('bold');
-    // }
-
-
+    let test = "999";
 
     return (
       <div className="App">
@@ -123,12 +88,16 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <Cockpits myPerson={person}/>
+        <Cockpits
+          datas={this.state}
+          clicked={this.togglePersonHandle}
+          tested={test}
+        />
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           {/* ==== */}
         </p>
-        {person}
+        {persons}
         <button onClick={this.handleCount}>+1</button>
         <div>{this.state.count}</div>
       </div>
